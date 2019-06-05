@@ -42,12 +42,13 @@ public class ShoppingCart {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		
-		String mainMenu = "Choose an option from the menu:\n\n [A]dd products to cart \n [V]iew cart contents \n [D]isplay total value of the cart \n [Q]uit app \n";
+		String mainMenu = "Choose an option from the menu:\n\n [A]dd products to cart \n [V]iew cart contents \n [D]isplay total value of the cart \n [R]emove item from cart \n [Q]uit app \n";
 		System.out.println(mainMenu);
 		
 		String menuChoice = scanner.nextLine();
 		boolean timeToQuit = false;
 		
+		//the loop with menu choices - base of the app
 		do {
 			
 			switch (menuChoice) {
@@ -74,6 +75,16 @@ public class ShoppingCart {
 				menuChoice = scanner.nextLine();
 				break;
 				
+			case "R":
+				try {
+					removeItem();
+				} catch (InputMismatchException e) {
+					System.out.println("Incorrect input.\n");
+				}
+				System.out.println(mainMenu);
+				menuChoice = scanner.nextLine();
+				break;				
+				
 			case "Q":
 				timeToQuit = true;
 				break;
@@ -87,6 +98,7 @@ public class ShoppingCart {
 		} while (timeToQuit==false);
 
 	}
+	
 	
 	public static void addToCart(){
 		
@@ -105,7 +117,7 @@ public class ShoppingCart {
 		addedProduct.accept(visitor);
 
 		//adding product cost to total cost of the cart
-		totalCost = totalCost + addedProduct.getCost();
+		totalCost += addedProduct.getCost();
 		
 		System.out.println("\n"+addedProduct.getName() +" was added to cart\n");
 		}
@@ -114,8 +126,11 @@ public class ShoppingCart {
 		if (cart.isEmpty()==true) {
 			System.out.println("Your cart is empty");
 		} else {
+			int i = 0;
+			System.out.println("Your cart:");
 			for(Product p: cart) {
-				System.out.println(p.getName()+", amount: "+p.getAmount()+", cost: "+(Math.round(p.getCost()*100.0)/100.0));
+				System.out.println("["+i+"] " + p.getName()+", amount: "+p.getAmount()+", cost: "+(Math.round(p.getCost()*100.0)/100.0));
+				i++;
 			}
 		}
 	}
@@ -127,5 +142,24 @@ public class ShoppingCart {
 		}
 	}
 	
+	public static void removeItem() {
+		viewCart();
+
+		System.out.println("Choose the number of product that you want to remove:");
+		
+		Scanner rScanner = new Scanner(System.in);
+		int removeIndex = rScanner.nextInt();
+		
+		//subtracting the cost of removed product from the total value
+		double removedCost = cart.get(removeIndex).getCost();
+		totalCost -= removedCost;
+		
+		String removedName = cart.get(removeIndex).getName();
+		
+		//removing product from cart
+		cart.remove(removeIndex);
+		
+		System.out.println(removedName+" was removed from your cart \n");
+	}
 }
 

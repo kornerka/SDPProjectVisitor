@@ -7,7 +7,6 @@ public class FruitByPiece implements Product {
 	private double pricePerPiece;
 	private String name;
 	private int amount;
-	//private int availability;
 	private double cost;
 	
 	

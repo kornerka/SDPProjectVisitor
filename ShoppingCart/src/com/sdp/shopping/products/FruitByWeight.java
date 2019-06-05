@@ -7,7 +7,6 @@ public class FruitByWeight implements Product {
 	private double pricePerKg;
 	private String name;
 	private double weight;
-	//private double availability;
 	private double cost;
 
 	

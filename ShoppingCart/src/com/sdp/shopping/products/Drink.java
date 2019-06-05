@@ -8,7 +8,6 @@ public class Drink implements Product {
 	private String name;
 	private double volume;
 	private double bottlePrice = 1.5;
-	//private double availability;
 	private double cost;
 
 	

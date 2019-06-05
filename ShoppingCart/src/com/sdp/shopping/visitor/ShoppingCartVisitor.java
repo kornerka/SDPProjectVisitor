@@ -21,6 +21,9 @@ public class ShoppingCartVisitor implements Visitor {
 		drink.setCost(cost);
 	}
 
+	//calculating cost for FruitByPiece and FruitByWeight is the same, 
+	//but the amount of product is an integer in the first case and a double type in the other
+	
 	@Override
 	public void visit(FruitByPiece fruitPiece) {
 		System.out.println("\nInput amount you want to buy\n");
